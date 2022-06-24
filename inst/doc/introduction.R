@@ -115,7 +115,7 @@ tar_script({
     tar_target(
       custom_summary,
       posterior::summarize_draws(
-        dplyr::select(example_draws_x, -.draw),
+        dplyr::select(example_draws_x, -starts_with(".")),
         ~posterior::quantile2(.x, probs = c(0.25, 0.75))
       )
     )
@@ -144,7 +144,7 @@ tar_script({
 #    tar_target(
 #      custom_summary,
 #      posterior::summarize_draws(
-#        dplyr::select(example_draws_x, -.draw),
+#        dplyr::select(example_draws_x, -starts_with(".")),
 #        ~posterior::quantile2(.x, probs = c(0.25, 0.75))
 #      )
 #    )
@@ -185,7 +185,7 @@ tar_script({
     tar_target(
       custom_summary,
       posterior::summarize_draws(
-        dplyr::select(example_draws_x, -.draw),
+        dplyr::select(example_draws_x, -starts_with(".")),
         ~posterior::quantile2(.x, probs = c(0.25, 0.75))
       )
     )
@@ -214,7 +214,7 @@ tar_script({
 #    tar_target(
 #      custom_summary,
 #      posterior::summarize_draws(
-#        dplyr::select(example_draws_x, -.draw),
+#        dplyr::select(example_draws_x, -starts_with(".")),
 #        ~posterior::quantile2(.x, probs = c(0.25, 0.75))
 #      )
 #    )

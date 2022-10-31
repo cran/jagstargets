@@ -13,7 +13,7 @@ Description: Bayesian data analysis usually incurs long runtimes
   For the underlying methodology, please refer
   to the documentation of 'targets' <doi:10.21105/joss.02959> and 'JAGS'
   (Plummer 2003) <https://www.r-project.org/conferences/DSC-2003/Proceedings/Plummer.pdf>.
-Version: 1.0.3
+Version: 1.0.4
 License: MIT + file LICENSE
 URL: https://docs.ropensci.org/jagstargets/,
         https://github.com/ropensci/jagstargets
@@ -48,15 +48,15 @@ Suggests: dplyr (>= 1.0.2), fs (>= 1.5.0), knitr (>= 1.30), R.utils (>=
 SystemRequirements: JAGS 4.x.y (https://mcmc-jags.sourceforge.net)
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2022-06-24 14:52:15 UTC; c240390
+Packaged: 2022-10-31 16:05:03 UTC; c240390
 Author: William Michael Landau [aut, cre]
     (<https://orcid.org/0000-0003-1878-3253>),
   David Lawrence Miller [rev],
   Eli Lilly and Company [cph]
 Maintainer: William Michael Landau <will.landau@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-06-24 15:30:02 UTC
+Date/Publication: 2022-10-31 17:00:26 UTC

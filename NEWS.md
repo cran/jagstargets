@@ -1,3 +1,8 @@
+# jagstargets 1.0.4
+
+* Migrate docs away from deprecated `targets::tar_path()`.
+* Implement resilient reps-specific seeds in the `tar_jags_rep*()` functions.
+
 # jagstargets 1.0.3
 
 * Append a new `.dataset_id` column to target outputs to aid in model comparisons across the same datasets.

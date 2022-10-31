@@ -22,9 +22,8 @@ tar_jags_rep_summary(
   n.thin = 1,
   jags.module = c("glm", "dic"),
   inits = NULL,
-  RNGname = c("Wichmann-Hill", "Marsaglia-Multicarry", "Super-Duper",
-    "Mersenne-Twister"),
-  jags.seed = 123,
+  RNGname = c("Wichmann-Hill", "Marsaglia-Multicarry", "Super-Duper", "Mersenne-Twister"),
+  jags.seed = NULL,
   stdout = NULL,
   stderr = NULL,
   progress.bar = "text",
@@ -129,10 +128,8 @@ See the argument documentation of the
 See the argument documentation of the
 \code{R2jags::jags()} and \code{R2jags::jags.parallel()} help files for details.}
 
-\item{jags.seed}{Seeds to apply to JAGS, passed to
-\code{R2jags::jags()} or \code{R2jags::jags.parallel()}.
-See the argument documentation of the
-\code{R2jags::jags()} and \code{R2jags::jags.parallel()} help files for details.}
+\item{jags.seed}{The \code{jags.seed} argument of the \verb{tar_jags_rep*()}
+functions is deprecated. See the "Seeds" section for details.}
 
 \item{stdout}{Character of length 1, file path to write the stdout stream
 of the model when it runs. Set to \code{NULL} to print to the console.
@@ -225,12 +222,14 @@ If \code{"transient"}, the target gets unloaded
 after every new target completes.
 Either way, the target gets automatically loaded into memory
 whenever another target needs the value.
-For cloud-based dynamic files such as \code{format = "aws_file"},
-this memory strategy applies to
-temporary local copies of the file in \verb{_targets/scratch/"}:
-\code{"persistent"} means they remain until the end of the pipeline,
-and \code{"transient"} means they get deleted from the file system
-as soon as possible. The former conserves bandwidth,
+For cloud-based dynamic files
+(e.g. \code{format = "file"} with \code{repository = "aws"}),
+this memory strategy applies to the
+temporary local copy of the file:
+\code{"persistent"} means it remains until the end of the pipeline
+and is then deleted,
+and \code{"transient"} means it gets deleted as soon as possible.
+The former conserves bandwidth,
 and the latter conserves local storage.}
 
 \item{garbage_collection}{Logical, whether to run \code{base::gc()}
@@ -270,21 +269,16 @@ each downstream target still attempts to load the data file
 If you select \code{storage = "none"}, then
 the return value of the target's command is ignored,
 and the data is not saved automatically.
-As with dynamic files (\code{format = "file"} or \code{"aws_file"}) it is the
+As with dynamic files (\code{format = "file"}) it is the
 responsibility of the user to write to
-\code{\link[targets:tar_path]{tar_path()}} from inside the target.
-An example target
-could look something like
-tar_target(x,
-{saveRDS("value", tar_path(create_dir = TRUE)); "ignored"},
-storage = "none")`.
+the data store from inside the target.
 
 The distinguishing feature of \code{storage = "none"}
-(as opposed to \code{format = "file"} or \code{"aws_file"})
+(as opposed to \code{format = "file"})
 is that in the general case,
 downstream targets will automatically try to load the data
 from the data store as a dependency. As a corollary, \code{storage = "none"}
-is completely unnecessary if \code{format} is \code{"file"} or \code{"aws_file"}.
+is completely unnecessary if \code{format} is \code{"file"}.
 }}
 
 \item{retrieval}{Character of length 1, only relevant to
@@ -341,6 +335,17 @@ The MCMC targets use \code{R2jags::jags()} if \code{n.cluster} is \code{1} and
 \code{R2jags::jags.parallel()} otherwise. Most arguments to \code{tar_jags()}
 are forwarded to these functions.
 }
+\section{Seeds}{
+
+Rep-specific random number generator seeds for the data and models
+are automatically set based on the batch, rep,
+parent target name, and \code{tar_option_get("seed")}. This ensures
+the rep-specific seeds do not change when you change the batching
+configuration (e.g. 40 batches of 10 reps each vs 20 batches of 20
+reps each). Each data seed is in the \code{.seed} list element of the output,
+and each JAGS seed is in the .seed column of each JAGS model output.
+}
+
 \section{Target objects}{
 
 Most \code{stantargets} functions are target factories,

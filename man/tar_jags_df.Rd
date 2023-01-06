@@ -10,7 +10,8 @@ tar_jags_df(
   output = c("draws", "summary", "dic"),
   variables = NULL,
   summaries = NULL,
-  summary_args = NULL
+  summary_args = NULL,
+  transform = NULL
 )
 }
 \arguments{
@@ -34,6 +35,16 @@ on the \code{CmdStanFit} object.}
 \item{summary_args}{List of summary function arguments passed to
 \code{.args} in \code{posterior::summarize_draws()} through \verb{$summary()}
 on the \code{CmdStanFit} object.}
+
+\item{transform}{Symbol or \code{NULL}, name of a function that accepts
+arguments \code{data} and \code{draws} and returns a data frame. Here,
+\code{data} is the JAGS data list supplied to the model, and \code{draws}
+is a data frame with one column per model parameter and one row
+per posterior sample. Any arguments other than \code{data} and \code{draws}
+must have valid default values because \code{jagstargets} will not
+populate them. See the simulation-based calibration discussion
+thread at \url{https://github.com/ropensci/jagstargets/discussions/31}
+for an example.}
 }
 \value{
 A data frame of \code{R2jags} output. Depends on the \code{output} argument.

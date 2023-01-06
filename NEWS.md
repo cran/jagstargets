@@ -1,3 +1,7 @@
+# jagstargets 1.1.0
+
+* Add a `transform` argument to `tar_jags_rep()` to support simulation-based calibration.
+
 # jagstargets 1.0.4
 
 * Migrate docs away from deprecated `targets::tar_path()`.

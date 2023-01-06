@@ -19,18 +19,32 @@
 #' @param summary_args List of summary function arguments passed to
 #'    `.args` in `posterior::summarize_draws()` through `$summary()`
 #'    on the `CmdStanFit` object.
+#' @param transform Symbol or `NULL`, name of a function that accepts
+#'   arguments `data` and `draws` and returns a data frame. Here,
+#'   `data` is the JAGS data list supplied to the model, and `draws`
+#'   is a data frame with one column per model parameter and one row
+#'   per posterior sample. Any arguments other than `data` and `draws`
+#'   must have valid default values because `jagstargets` will not
+#'   populate them. See the simulation-based calibration discussion
+#'   thread at <https://github.com/ropensci/jagstargets/discussions/31>
+#'   for an example.
 tar_jags_df <- function(
   fit,
   data,
   output = c("draws", "summary", "dic"),
   variables = NULL,
   summaries = NULL,
-  summary_args = NULL
+  summary_args = NULL,
+  transform = NULL
 ) {
-  out <- match.arg(output)
+  output <- match.arg(output)
   out <- switch(
     output,
-    draws = tar_jags_df_draws(fit),
+    draws = tar_jags_df_draws(
+      fit = fit,
+      data = data,
+      transform = transform
+    ),
     summary = tar_jags_df_summary(
       fit = fit,
       data = data,
@@ -44,7 +58,7 @@ tar_jags_df <- function(
   out
 }
 
-tar_jags_df_draws <- function(fit) {
+tar_jags_df_draws <- function(fit, data, transform) {
   list <- fit$BUGSoutput$sims.list
   out <- as.matrix(fit$BUGSoutput$sims.matrix, nrow = nrow(list))
   colnames(out) <- colnames(out) %||% names(list)
@@ -54,6 +68,13 @@ tar_jags_df_draws <- function(fit) {
   out$.chain <- rep(seq_len(chains), each = iterations)
   out$.iteration <- rep(seq_len(iterations), times = chains)
   out$.draw <- out$.iteration
+  if (!is.null(transform)) {
+    out <- do.call(
+      what = transform,
+      args = list(data = data, draws = out),
+      envir = targets::tar_option_get("envir")
+    )
+  }
   out
 }
 
@@ -64,7 +85,7 @@ tar_jags_df_summary <- function(
   summaries,
   summary_args
 ) {
-  draws <- tar_jags_df_draws(fit)
+  draws <- tar_jags_df_draws(fit = fit, data = data, transform = NULL)
   draws$.draw <- NULL
   if (!is.null(variables)) {
     pattern <- paste(paste0("*", variables, "\\[*"), collapse = "|")

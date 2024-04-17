@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 # With the root.dir option below,
 # this vignette runs the R code in a temporary directory
 # so new files are written to temporary storage
@@ -29,7 +29,7 @@ lines <- "model {
 }"
 writeLines(lines, "x.jags")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 library(targets)
 tar_script({
@@ -47,7 +47,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  library(targets)
 #  library(jagstargets)
@@ -73,10 +73,10 @@ tar_script({
 ## -----------------------------------------------------------------------------
 tar_manifest()
 
-## ---- output = FALSE, message = FALSE-----------------------------------------
+## ----output = FALSE, message = FALSE------------------------------------------
 tar_visnetwork(targets_only = TRUE)
 
-## ---- output = FALSE----------------------------------------------------------
+## ----output = FALSE-----------------------------------------------------------
 tar_make()
 
 ## -----------------------------------------------------------------------------
@@ -94,10 +94,10 @@ tar_outdated()
 ## -----------------------------------------------------------------------------
 tar_visnetwork(targets_only = TRUE)
 
-## ---- output = FALSE----------------------------------------------------------
+## ----output = FALSE-----------------------------------------------------------
 tar_make()
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 tar_script({
   library(jagstargets)
@@ -122,7 +122,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  library(targets)
 #  library(jagstargets)
@@ -153,7 +153,7 @@ tar_script({
 ## -----------------------------------------------------------------------------
 tar_visnetwork(targets_only = TRUE)
 
-## ---- output = FALSE, warning = FALSE-----------------------------------------
+## ----output = FALSE, warning = FALSE------------------------------------------
 tar_make()
 
 ## -----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ lines <- "model {
 }"
 writeLines(lines, "y.jags")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 tar_script({
   library(targets)
@@ -192,7 +192,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  library(targets)
 #  library(jagstargets)

@@ -27,22 +27,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
 <script>(function() {
   // If window.HTMLWidgets is already defined, then use it; otherwise create a
   // new object. This allows preceding code to set options that affect the
@@ -341,22 +325,18 @@ document.addEventListener('DOMContentLoaded', function() {
       el.style.width = "100%";
       el.style.height = "100%";
 
-      var rect = cel.getBoundingClientRect();
-
       return {
-        getWidth: function() { return rect.width; },
-        getHeight: function() { return rect.height; }
+        getWidth: function() { return cel.getBoundingClientRect().width; },
+        getHeight: function() { return cel.getBoundingClientRect().height; }
       };
 
     } else {
       el.style.width = px(sizing.width);
       el.style.height = px(sizing.height);
 
-      var rect = cel.getBoundingClientRect();
-
       return {
-        getWidth: function() { return rect.width; },
-        getHeight: function() { return rect.height; }
+        getWidth: function() { return cel.getBoundingClientRect().width; },
+        getHeight: function() { return cel.getBoundingClientRect().height; }
       };
     }
   }
@@ -5352,28 +5332,29 @@ HTMLWidgets.widget({
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -5385,55 +5366,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -5466,6 +5446,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 <style type="text/css">body {
 background-color: #fff;
@@ -5659,281 +5661,350 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Bayesian simulation pipelines with jagstargets</h1>
+<h1 class="title toc-ignore">Bayesian simulation pipelines with
+jagstargets</h1>
 
 
 
-<p>The <a href="https://docs.ropensci.org/jagstargets/articles/introduction.html">introductory vignette</a> vignette caters to Bayesian data analysis workflows with few datasets to analyze. However, it is sometimes desirable to run one or more Bayesian models repeatedly across many simulated datasets. Examples:</p>
+<p>The <a href="https://docs.ropensci.org/jagstargets/articles/introduction.html">introductory
+vignette</a> vignette caters to Bayesian data analysis workflows with
+few datasets to analyze. However, it is sometimes desirable to run one
+or more Bayesian models repeatedly across many simulated datasets.
+Examples:</p>
 <ol style="list-style-type: decimal">
-<li>Validate the implementation of a Bayesian model, using simulation to determine how reliably the model estimates the parameters under known data-generating scenarios.</li>
-<li>Simulate a randomized controlled experiment to explore frequentist properties such as power and Type I error.</li>
+<li>Validate the implementation of a Bayesian model, using simulation to
+determine how reliably the model estimates the parameters under known
+data-generating scenarios.</li>
+<li>Simulate a randomized controlled experiment to explore frequentist
+properties such as power and Type I error.</li>
 </ol>
-<p>This vignette focuses on (1). The goal of this particular example to simulate multiple datasets from the model below, analyze each dataset, and assess how often the estimated posterior intervals cover the true parameters from the prior predictive simulations. The quantile method by <span class="citation">Cook, Gelman, and Rubin (2006)</span> generalizes this concept, and simulation-based calibration <span class="citation">(Talts et al. 2020)</span> generalizes further. The interval-based technique featured in this vignette is not as robust as SBC, but it may be more expedient for large models because it does not require visual inspection of multiple histograms.</p>
-<p>Consider a simple regression model with a continuous response <code>y</code> with a covariate <code>x</code>.</p>
+<p>This vignette focuses on (1). The goal of this particular example to
+simulate multiple datasets from the model below, analyze each dataset,
+and assess how often the estimated posterior intervals cover the true
+parameters from the prior predictive simulations. The quantile method by
+<span class="citation">Cook, Gelman, and Rubin (2006)</span> generalizes
+this concept, and simulation-based calibration <span class="citation">(Talts et al. 2020)</span> generalizes further. The
+interval-based technique featured in this vignette is not as robust as
+SBC, but it may be more expedient for large models because it does not
+require visual inspection of multiple histograms.</p>
+<p>Consider a simple regression model with a continuous response
+<code>y</code> with a covariate <code>x</code>.</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_i &amp;\stackrel{\text{iid}}{\sim} \text{Normal}(\beta_1 + x_i \beta_2, 1) \\
+y_i &amp;\stackrel{\text{iid}}{\sim} \text{Normal}(\beta_1 + x_i
+\beta_2, 1) \\
 \beta_1, \beta_2 &amp;\stackrel{\text{iid}}{\sim} \text{Normal}(0, 1)
 \end{aligned}
 \]</span></p>
 <p>We write this model in a JAGS model file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>lines &lt;-<span class="st"> &quot;model {</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  for (i in 1:n) {</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="st">    y[i] ~ dnorm(beta[1] + x[i] * beta[2], 1)</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="st">  }</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  for (i in 1:2) {</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="st">    beta[i] ~ dnorm(0, 1)</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  }</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="st">}&quot;</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">writeLines</span>(lines, <span class="st">&quot;model.jags&quot;</span>)</span></code></pre></div>
-<p>Next, we define a pipeline to simulate multiple datasets and fit each dataset with the model. In our data-generating function, we put the true parameter values of each simulation in a special <code>.join_data</code> list. <code>jagstargets</code> will automatically join the elements of <code>.join_data</code> to the correspondingly named variables in the summary output. This will make it super easy to check how often our posterior intervals capture the truth. As for scale, generate 20 datasets (5 batches with 4 replications each) and run the model on each of the 20 datasets.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> By default, each of the 20 model runs computes 3 MCMC chains with 2000 MCMC iterations each (including burn-in) and you can adjust with the <code>n.chains</code> and <code>n.iter</code> arguments of <code>tar_jags_rep_summary()</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># _targets.R</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(targets)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(jagstargets)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">options</span>(<span class="dt">crayon.enabled =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Use computer memory more sparingly:</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">tar_option_set</span>(<span class="dt">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="dt">garbage_collection =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a>generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> 10L) {</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  beta &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-1</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">length.out =</span> n)</span>
-<span id="cb2-11"><a href="#cb2-11"></a>  y &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>  <span class="co"># with the same names.</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>  .join_data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">beta =</span> beta)</span>
-<span id="cb2-16"><a href="#cb2-16"></a>  <span class="kw">list</span>(<span class="dt">n =</span> n, <span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">.join_data =</span> .join_data)</span>
-<span id="cb2-17"><a href="#cb2-17"></a>}</span>
-<span id="cb2-18"><a href="#cb2-18"></a></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="kw">list</span>(</span>
-<span id="cb2-20"><a href="#cb2-20"></a>  <span class="kw">tar_jags_rep_summary</span>(</span>
-<span id="cb2-21"><a href="#cb2-21"></a>    model,</span>
-<span id="cb2-22"><a href="#cb2-22"></a>    <span class="st">&quot;model.jags&quot;</span>,</span>
-<span id="cb2-23"><a href="#cb2-23"></a>    <span class="dt">data =</span> <span class="kw">generate_data</span>(),</span>
-<span id="cb2-24"><a href="#cb2-24"></a>    <span class="dt">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb2-25"><a href="#cb2-25"></a>    <span class="dt">batches =</span> <span class="dv">5</span>, <span class="co"># Number of branch targets.</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a>    <span class="dt">reps =</span> <span class="dv">4</span>, <span class="co"># Number of model reps per branch target.</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a>    <span class="dt">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb2-28"><a href="#cb2-28"></a>    <span class="dt">summaries =</span> <span class="kw">list</span>(</span>
-<span id="cb2-29"><a href="#cb2-29"></a>      <span class="op">~</span>posterior<span class="op">::</span><span class="kw">quantile2</span>(.x, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb2-30"><a href="#cb2-30"></a>    )</span>
-<span id="cb2-31"><a href="#cb2-31"></a>  )</span>
-<span id="cb2-32"><a href="#cb2-32"></a>)</span></code></pre></div>
-<p>We now have a pipeline that runs the model 10 times: 5 batches (branch targets) with 4 replications per batch.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">tar_visnetwork</span>()</span></code></pre></div>
-<div class="visNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-94da97647da0db31a7e4" style="width:288px;height:288px;"></div>
-<script type="application/json" data-for="htmlwidget-94da97647da0db31a7e4">{"x":{"nodes":{"name":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","generate_data"],"type":["stem","stem","pattern","stem","stem","pattern","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null],"label":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","generate_data"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","generate_data"],"level":[4,1,2,1,2,3,1],"shape":["dot","dot","square","dot","dot","square","triangle"]},"edges":{"from":["model_file_model","generate_data","model_batch","model_data","model_lines_model","model_model"],"to":["model_lines_model","model_data","model_data","model_model","model_model","model"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Pattern","Function"],"color":["#78B7C5","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="st">&quot;model {</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="st">  for (i in 1:n) {</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="st">    y[i] ~ dnorm(beta[1] + x[i] * beta[2], 1)</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="st">  for (i in 1:2) {</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="st">    beta[i] ~ dnorm(0, 1)</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="st">}&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">writeLines</span>(lines, <span class="st">&quot;model.jags&quot;</span>)</span></code></pre></div>
+<p>Next, we define a pipeline to simulate multiple datasets and fit each
+dataset with the model. In our data-generating function, we put the true
+parameter values of each simulation in a special <code>.join_data</code>
+list. <code>jagstargets</code> will automatically join the elements of
+<code>.join_data</code> to the correspondingly named variables in the
+summary output. This will make it super easy to check how often our
+posterior intervals capture the truth. As for scale, generate 20
+datasets (5 batches with 4 replications each) and run the model on each
+of the 20 datasets.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> By default, each of the 20 model runs
+computes 3 MCMC chains with 2000 MCMC iterations each (including
+burn-in) and you can adjust with the <code>n.chains</code> and
+<code>n.iter</code> arguments of
+<code>tar_jags_rep_summary()</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># _targets.R</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(jagstargets)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">options</span>(<span class="at">crayon.enabled =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># Use computer memory more sparingly:</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">tar_option_set</span>(<span class="at">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="at">garbage_collection =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> 10L) {</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> n)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">*</span> beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="co"># with the same names.</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  .join_data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">beta =</span> beta)</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">n =</span> n, <span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">.join_data =</span> .join_data)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>}</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="fu">tar_jags_rep_summary</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    model,</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="st">&quot;model.jags&quot;</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">generate_data</span>(),</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    <span class="at">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>    <span class="at">batches =</span> <span class="dv">5</span>, <span class="co"># Number of branch targets.</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>    <span class="at">reps =</span> <span class="dv">4</span>, <span class="co"># Number of model reps per branch target.</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>    <span class="at">summaries =</span> <span class="fu">list</span>(</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>      <span class="sc">~</span>posterior<span class="sc">::</span><span class="fu">quantile2</span>(.x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>    )</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>  )</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>)</span></code></pre></div>
+<p>We now have a pipeline that runs the model 10 times: 5 batches
+(branch targets) with 4 replications per batch.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-a7fc490adfabd5d29a6f" style="width:288px;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-a7fc490adfabd5d29a6f">{"x":{"nodes":{"name":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","generate_data"],"type":["stem","stem","pattern","stem","stem","pattern","function"],"description":[null,null,null,"model.jags","model.jags","model.jags",null],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null],"label":["model","model_batch","model_data","model_file_model\nmodel.jags","model_lines_model\nmodel.jags","model_model\nmodel.jags","generate_data"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","generate_data"],"level":[4,1,2,1,2,3,1],"shape":["dot","dot","square","dot","dot","square","triangle"]},"edges":{"from":["model_file_model","generate_data","model_batch","model_data","model_lines_model","model_model"],"to":["model_lines_model","model_data","model_data","model_model","model_model","model"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Pattern","Function"],"color":["#78B7C5","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 <p>Run the computation with <code>tar_make()</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">tar_make</span>()</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; • start target model_batch</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; • built target model_batch [0.001 seconds]</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; • start target model_file_model</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; • built target model_file_model [0 seconds]</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; • start branch model_data_b0b9380a</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; • built branch model_data_b0b9380a [0.013 seconds]</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; • start branch model_data_ffcdb73c</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; • built branch model_data_ffcdb73c [0.007 seconds]</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; • start branch model_data_b968a03a</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; • built branch model_data_b968a03a [0.006 seconds]</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; • start branch model_data_f8763cb2</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; • built branch model_data_f8763cb2 [0.007 seconds]</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; • start branch model_data_0bfdabdc</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; • built branch model_data_0bfdabdc [0.007 seconds]</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; • built pattern model_data</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; • start target model_lines_model</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; • built target model_lines_model [0.002 seconds]</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; • start branch model_model_5d061b58</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; • built branch model_model_5d061b58 [0.249 seconds]</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; • start branch model_model_a9336683</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; • built branch model_model_a9336683 [0.197 seconds]</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; • start branch model_model_bde6a6d6</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; • built branch model_model_bde6a6d6 [0.194 seconds]</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; • start branch model_model_384f982f</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; • built branch model_model_384f982f [0.21 seconds]</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; • start branch model_model_0d59666a</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; • built branch model_model_0d59666a [0.201 seconds]</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; • built pattern model_model</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; • start target model</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; • built target model [0.001 seconds]</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; • end pipeline [2.7 seconds]</span></span></code></pre></div>
-<p>The result is an aggregated data frame of summary statistics, where the <code>.rep</code> column distinguishes among individual replicates. We have the posterior intervals for <code>beta</code> in columns <code>q2.5</code> and <code>q97.5</code>. And thanks to the <code>.join_data</code> list we included in <code>generate_data()</code>, our output has a <code>.join_data</code> column with the true values of the parameters in our simulations.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">tar_load</span>(model)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>model</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; # A tibble: 40 × 9</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;    variable   q2.5   q97.5 .join_data .dataset_id      .rep    .seed .file .name</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  1 beta[1]  -0.766  0.414      0.0780 model_data_b0b9… 7a1b… -1.49e9 mode… model</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;  2 beta[2]  -1.19   0.574      0.272  model_data_b0b9… 7a1b… -1.49e9 mode… model</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;  3 beta[1]   0.456  1.66       1.19   model_data_b0b9… 03dd…  2.04e9 mode… model</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;  4 beta[2]  -0.832  0.960      0.0635 model_data_b0b9… 03dd…  2.04e9 mode… model</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;  5 beta[1]   1.32   2.49       2.15   model_data_b0b9… 3043…  4.83e8 mode… model</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  6 beta[2]  -1.90  -0.169     -1.71   model_data_b0b9… 3043…  4.83e8 mode… model</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  7 beta[1]  -0.242  0.940      0.271  model_data_b0b9… 8d1a…  6.64e8 mode… model</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  8 beta[2]  -1.70   0.0636    -0.407  model_data_b0b9… 8d1a…  6.64e8 mode… model</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  9 beta[1]   0.671  1.86       1.44   model_data_ffcd… f2fa… -1.33e9 mode… model</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; 10 beta[2]  -1.15   0.636     -0.579  model_data_ffcd… f2fa… -1.33e9 mode… model</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; # … with 30 more rows</span></span></code></pre></div>
-<p>Now, let’s assess how often the estimated 95% posterior intervals capture the true values of <code>beta</code>. If the model is implemented correctly, the coverage value below should be close to 95%. (Ordinarily, we would <a href="https://books.ropensci.org/targets/dynamic.html#batching">increase the number of batches and reps per batch</a> and <a href="https://books.ropensci.org/targets/hpc.html">run batches in parallel computing</a>.)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>model <span class="op">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">coverage =</span> <span class="kw">mean</span>(q2<span class="fl">.5</span> <span class="op">&lt;</span><span class="st"> </span>.join_data <span class="op">&amp;</span><span class="st"> </span>.join_data <span class="op">&lt;</span><span class="st"> </span>q97<span class="fl">.5</span>))</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;   variable coverage</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 1 beta[1]      0.95</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 2 beta[2]      0.95</span></span></code></pre></div>
-<p>For maximum reproducibility, we should express the coverage assessment as a custom function and a target in the pipeline.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># _targets.R</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># packages needed to define the pipeline:</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">library</span>(targets)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">library</span>(jagstargets)</span>
-<span id="cb7-5"><a href="#cb7-5"></a></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="kw">tar_option_set</span>(</span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="dt">packages =</span> <span class="st">&quot;dplyr&quot;</span>, <span class="co"># packages needed to run the pipeline</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>  <span class="dt">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="co"># memory efficiency</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>  <span class="dt">garbage_collection =</span> <span class="ot">TRUE</span> <span class="co"># memory efficiency</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a></span>
-<span id="cb7-12"><a href="#cb7-12"></a>generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> 10L) {</span>
-<span id="cb7-13"><a href="#cb7-13"></a>  beta &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb7-14"><a href="#cb7-14"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-1</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">length.out =</span> n)</span>
-<span id="cb7-15"><a href="#cb7-15"></a>  y &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
-<span id="cb7-16"><a href="#cb7-16"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a>  <span class="co"># with the same names.</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a>  .join_data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">beta =</span> beta)</span>
-<span id="cb7-20"><a href="#cb7-20"></a>  <span class="kw">list</span>(<span class="dt">n =</span> n, <span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">.join_data =</span> .join_data)</span>
-<span id="cb7-21"><a href="#cb7-21"></a>}</span>
-<span id="cb7-22"><a href="#cb7-22"></a></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="kw">list</span>(</span>
-<span id="cb7-24"><a href="#cb7-24"></a>  <span class="kw">tar_jags_rep_summary</span>(</span>
-<span id="cb7-25"><a href="#cb7-25"></a>    model,</span>
-<span id="cb7-26"><a href="#cb7-26"></a>    <span class="st">&quot;model.jags&quot;</span>,</span>
-<span id="cb7-27"><a href="#cb7-27"></a>    <span class="dt">data =</span> <span class="kw">generate_data</span>(),</span>
-<span id="cb7-28"><a href="#cb7-28"></a>    <span class="dt">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb7-29"><a href="#cb7-29"></a>    <span class="dt">batches =</span> <span class="dv">5</span>, <span class="co"># Number of branch targets.</span></span>
-<span id="cb7-30"><a href="#cb7-30"></a>    <span class="dt">reps =</span> <span class="dv">4</span>, <span class="co"># Number of model reps per branch target.</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a>    <span class="dt">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb7-32"><a href="#cb7-32"></a>    <span class="dt">summaries =</span> <span class="kw">list</span>(</span>
-<span id="cb7-33"><a href="#cb7-33"></a>      <span class="op">~</span>posterior<span class="op">::</span><span class="kw">quantile2</span>(.x, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb7-34"><a href="#cb7-34"></a>    )</span>
-<span id="cb7-35"><a href="#cb7-35"></a>  ),</span>
-<span id="cb7-36"><a href="#cb7-36"></a>  <span class="kw">tar_target</span>(</span>
-<span id="cb7-37"><a href="#cb7-37"></a>    coverage,</span>
-<span id="cb7-38"><a href="#cb7-38"></a>    model <span class="op">%&gt;%</span></span>
-<span id="cb7-39"><a href="#cb7-39"></a><span class="st">      </span><span class="kw">group_by</span>(variable) <span class="op">%&gt;%</span></span>
-<span id="cb7-40"><a href="#cb7-40"></a><span class="st">      </span><span class="kw">summarize</span>(</span>
-<span id="cb7-41"><a href="#cb7-41"></a>        <span class="dt">coverage =</span> <span class="kw">mean</span>(q2<span class="fl">.5</span> <span class="op">&lt;</span><span class="st"> </span>.join_data <span class="op">&amp;</span><span class="st"> </span>.join_data <span class="op">&lt;</span><span class="st"> </span>q97<span class="fl">.5</span>),</span>
-<span id="cb7-42"><a href="#cb7-42"></a>        <span class="dt">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb7-43"><a href="#cb7-43"></a>      )</span>
-<span id="cb7-44"><a href="#cb7-44"></a>  )</span>
-<span id="cb7-45"><a href="#cb7-45"></a>)</span></code></pre></div>
-<p>The new <code>coverage</code> target should the only outdated target, and it should be connected to the upstream <code>model</code> target.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">tar_visnetwork</span>()</span></code></pre></div>
-<div class="visNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-54be7fe7ac6e3bcd184c" style="width:288px;height:288px;"></div>
-<script type="application/json" data-for="htmlwidget-54be7fe7ac6e3bcd184c">{"x":{"nodes":{"name":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","coverage","generate_data"],"type":["stem","stem","pattern","stem","stem","pattern","stem","function"],"status":["uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","uptodate"],"seconds":[0.001,0.001,0.04,0,0.002,1.051,null,null],"bytes":[4283,99,3017,128,144,7505,null,null],"branches":[null,null,5,null,null,5,null,null],"label":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","coverage","generate_data"],"color":["#354823","#354823","#354823","#354823","#354823","#354823","#78B7C5","#354823"],"id":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","coverage","generate_data"],"level":[4,1,2,1,2,3,5,1],"shape":["dot","dot","square","dot","dot","square","dot","triangle"]},"edges":{"from":["model_file_model","generate_data","model_batch","model","model_data","model_lines_model","model_model"],"to":["model_lines_model","model_data","model_data","coverage","model_model","model_model","model"],"arrows":["to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Stem","Pattern","Function"],"color":["#354823","#78B7C5","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
-<p>When we run the pipeline, only the coverage assessment should run. That way, we skip all the expensive computation of simulating datasets and running MCMC multiple times.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">tar_make</span>()</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; ✔ skip target model_batch</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; ✔ skip target model_file_model</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; ✔ skip branch model_data_b0b9380a</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; ✔ skip branch model_data_ffcdb73c</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; ✔ skip branch model_data_b968a03a</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; ✔ skip branch model_data_f8763cb2</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; ✔ skip branch model_data_0bfdabdc</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; ✔ skip pattern model_data</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; ✔ skip target model_lines_model</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; ✔ skip branch model_model_5d061b58</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; ✔ skip branch model_model_a9336683</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; ✔ skip branch model_model_bde6a6d6</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; ✔ skip branch model_model_384f982f</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; ✔ skip branch model_model_0d59666a</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; ✔ skip pattern model_model</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; ✔ skip target model</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; • start target coverage</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; • built target coverage [0.03 seconds]</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; • end pipeline [0.555 seconds]</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">tar_read</span>(coverage)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt;   variable coverage</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; 1 beta[1]      0.95</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; 2 beta[2]      0.95</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">tar_make</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched target model_batch</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; ● completed target model_batch [0 seconds]</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched target model_file_model</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; ● completed target model_file_model [0 seconds]</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_data_5fcdec5f855f2d9c</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_data_5fcdec5f855f2d9c [0.005 seconds]</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_data_b6c9a18333c6a8ca</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_data_b6c9a18333c6a8ca [0.003 seconds]</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_data_5db4354944466148</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_data_5db4354944466148 [0.002 seconds]</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_data_4a40cb783277d5dc</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_data_4a40cb783277d5dc [0.003 seconds]</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_data_104af6d505e730d6</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_data_104af6d505e730d6 [0.002 seconds]</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; ● completed pattern model_data</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched target model_lines_model</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; ● completed target model_lines_model [0 seconds]</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_model_50b3d9bcb9189fef</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_model_50b3d9bcb9189fef [0.099 seconds]</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_model_93bc2c2a4b8dc29f</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_model_93bc2c2a4b8dc29f [0.083 seconds]</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_model_e2ab729f4fa1dd45</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_model_e2ab729f4fa1dd45 [0.08 seconds]</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_model_5871bb9227fbbf93</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_model_5871bb9227fbbf93 [0.081 seconds]</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched branch model_model_820c742ab2ba1134</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; ● completed branch model_model_820c742ab2ba1134 [0.08 seconds]</span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; ● completed pattern model_model</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched target model</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; ● completed target model [0 seconds]</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; ▶ ended pipeline [1.167 seconds]</span></span></code></pre></div>
+<p>The result is an aggregated data frame of summary statistics, where
+the <code>.rep</code> column distinguishes among individual replicates.
+We have the posterior intervals for <code>beta</code> in columns
+<code>q2.5</code> and <code>q97.5</code>. And thanks to the
+<code>.join_data</code> list we included in
+<code>generate_data()</code>, our output has a <code>.join_data</code>
+column with the true values of the parameters in our simulations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">tar_load</span>(model)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>model</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40 × 9</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;    variable    q2.5 q97.5 .join_data .dataset_id       .rep    .seed .file .name</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  1 beta[1]  -0.938  0.268    -0.199  model_data_5fcde… b62e…  1.15e9 mode… model</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  2 beta[2]  -0.0773 1.60      1.29   model_data_5fcde… b62e…  1.15e9 mode… model</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  3 beta[1]   0.657  1.83      1.39   model_data_5fcde… 24f3… -5.38e8 mode… model</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  4 beta[2]  -0.422  1.29      0.377  model_data_5fcde… 24f3… -5.38e8 mode… model</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  5 beta[1]   0.163  1.37      1.33   model_data_5fcde… 5a07… -7.25e8 mode… model</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  6 beta[2]   0.224  1.92      0.947  model_data_5fcde… 5a07… -7.25e8 mode… model</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  7 beta[1]  -0.222  0.978     0.797  model_data_5fcde… c893… -5.61e8 mode… model</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  8 beta[2]   0.454  2.22      1.14   model_data_5fcde… c893… -5.61e8 mode… model</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  9 beta[1]  -0.663  0.506     0.0841 model_data_b6c9a… 557b…  1.57e8 mode… model</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; 10 beta[2]  -0.613  1.14     -0.114  model_data_b6c9a… 557b…  1.57e8 mode… model</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 30 more rows</span></span></code></pre></div>
+<p>Now, let’s assess how often the estimated 95% posterior intervals
+capture the true values of <code>beta</code>. If the model is
+implemented correctly, the coverage value below should be close to 95%.
+(Ordinarily, we would <a href="https://books.ropensci.org/targets/dynamic.html#batching">increase
+the number of batches and reps per batch</a> and <a href="https://books.ropensci.org/targets/hpc.html">run batches in
+parallel computing</a>.)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">coverage =</span> <span class="fu">mean</span>(q2<span class="fl">.5</span> <span class="sc">&lt;</span> .join_data <span class="sc">&amp;</span> .join_data <span class="sc">&lt;</span> q97<span class="fl">.5</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;   variable coverage</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 1 beta[1]         1</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 2 beta[2]         1</span></span></code></pre></div>
+<p>For maximum reproducibility, we should express the coverage
+assessment as a custom function and a target in the pipeline.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># _targets.R</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># packages needed to define the pipeline:</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">library</span>(jagstargets)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">tar_option_set</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">packages =</span> <span class="st">&quot;dplyr&quot;</span>, <span class="co"># packages needed to run the pipeline</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="co"># memory efficiency</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="at">garbage_collection =</span> <span class="cn">TRUE</span> <span class="co"># memory efficiency</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>)</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> 10L) {</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> n)</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">*</span> beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="co"># with the same names.</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  .join_data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">beta =</span> beta)</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">n =</span> n, <span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">.join_data =</span> .join_data)</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>}</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  <span class="fu">tar_jags_rep_summary</span>(</span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>    model,</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>    <span class="st">&quot;model.jags&quot;</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">generate_data</span>(),</span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a>    <span class="at">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a>    <span class="at">batches =</span> <span class="dv">5</span>, <span class="co"># Number of branch targets.</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>    <span class="at">reps =</span> <span class="dv">4</span>, <span class="co"># Number of model reps per branch target.</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>    <span class="at">summaries =</span> <span class="fu">list</span>(</span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a>      <span class="sc">~</span>posterior<span class="sc">::</span><span class="fu">quantile2</span>(.x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a>    )</span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a>  ),</span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a>    coverage,</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a>    model <span class="sc">%&gt;%</span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a>      <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a>      <span class="fu">summarize</span>(</span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a>        <span class="at">coverage =</span> <span class="fu">mean</span>(q2<span class="fl">.5</span> <span class="sc">&lt;</span> .join_data <span class="sc">&amp;</span> .join_data <span class="sc">&lt;</span> q97<span class="fl">.5</span>),</span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a>        <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a>      )</span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a>  )</span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a>)</span></code></pre></div>
+<p>The new <code>coverage</code> target should the only outdated target,
+and it should be connected to the upstream <code>model</code>
+target.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-362b0cd5ba52fc3b1bbc" style="width:288px;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-362b0cd5ba52fc3b1bbc">{"x":{"nodes":{"name":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","coverage","generate_data"],"type":["stem","stem","pattern","stem","stem","pattern","stem","function"],"description":[null,null,null,"model.jags","model.jags","model.jags",null,null],"status":["uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","uptodate"],"seconds":[0,0,0.015,0,0,0.423,null,null],"bytes":[4508,99,3062,128,144,8145,null,null],"branches":[null,null,5,null,null,5,null,null],"label":["model","model_batch","model_data","model_file_model\nmodel.jags","model_lines_model\nmodel.jags","model_model\nmodel.jags","coverage","generate_data"],"color":["#354823","#354823","#354823","#354823","#354823","#354823","#78B7C5","#354823"],"id":["model","model_batch","model_data","model_file_model","model_lines_model","model_model","coverage","generate_data"],"level":[4,1,2,1,2,3,5,1],"shape":["dot","dot","square","dot","dot","square","dot","triangle"]},"edges":{"from":["model_file_model","generate_data","model_batch","model","model_data","model_lines_model","model_model"],"to":["model_lines_model","model_data","model_data","coverage","model_model","model_model","model"],"arrows":["to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Stem","Pattern","Function"],"color":["#354823","#78B7C5","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<p>When we run the pipeline, only the coverage assessment should run.
+That way, we skip all the expensive computation of simulating datasets
+and running MCMC multiple times.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">tar_make</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; ✔ skipped target model_batch</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; ✔ skipped target model_file_model</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_data_5fcdec5f855f2d9c</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_data_b6c9a18333c6a8ca</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_data_5db4354944466148</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_data_4a40cb783277d5dc</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_data_104af6d505e730d6</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; ✔ skipped pattern model_data</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; ✔ skipped target model_lines_model</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_model_50b3d9bcb9189fef</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_model_93bc2c2a4b8dc29f</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_model_e2ab729f4fa1dd45</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_model_5871bb9227fbbf93</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; ✔ skipped branch model_model_820c742ab2ba1134</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; ✔ skipped pattern model_model</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; ✔ skipped target model</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; ▶ dispatched target coverage</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; ● completed target coverage [0.01 seconds]</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; ▶ ended pipeline [0.179 seconds]</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">tar_read</span>(coverage)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt;   variable coverage</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; 1 beta[1]         1</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 2 beta[2]         1</span></span></code></pre></div>
 <div id="multiple-models" class="section level2">
 <h2>Multiple models</h2>
-<p><code>tar_jags_rep_mcmc_summary()</code> and similar functions allow you to supply multiple jags models. If you do, each model will share the the same collection of datasets, and the <code>.dataset_id</code> column of the model target output allows for custom analyses that compare different models against each other. Below, we add a new <code>model2.jags</code> file to the <code>jags_files</code> argument of <code>tar_jags_rep_mcmc_summary()</code>. In the coverage summary below, we group by <code>.name</code> to compute a coverage statistic for each model.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>lines &lt;-<span class="st"> &quot;model {</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  for (i in 1:n) {</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">    y[i] ~ dnorm(beta[1] + x[i] * x[i] * beta[2], 1) # Regress on x^2, not x.</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  }</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  for (i in 1:2) {</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="st">    beta[i] ~ dnorm(0, 1)</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  }</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="st">}&quot;</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="kw">writeLines</span>(lines, <span class="st">&quot;model2.jags&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># _targets.R</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># packages needed to define the pipeline:</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">library</span>(targets)</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="kw">library</span>(jagstargets)</span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="kw">tar_option_set</span>(</span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="dt">packages =</span> <span class="st">&quot;dplyr&quot;</span>, <span class="co"># packages needed to run the pipeline</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>  <span class="dt">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="co"># memory efficiency</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>  <span class="dt">garbage_collection =</span> <span class="ot">TRUE</span> <span class="co"># memory efficiency</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a>)</span>
-<span id="cb12-11"><a href="#cb12-11"></a></span>
-<span id="cb12-12"><a href="#cb12-12"></a>generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> 10L) {</span>
-<span id="cb12-13"><a href="#cb12-13"></a>  beta &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb12-14"><a href="#cb12-14"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-1</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">length.out =</span> n)</span>
-<span id="cb12-15"><a href="#cb12-15"></a>  y &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
-<span id="cb12-16"><a href="#cb12-16"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>  <span class="co"># with the same names.</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>  .join_data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">beta =</span> beta)</span>
-<span id="cb12-20"><a href="#cb12-20"></a>  <span class="kw">list</span>(<span class="dt">n =</span> n, <span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">.join_data =</span> .join_data)</span>
-<span id="cb12-21"><a href="#cb12-21"></a>}</span>
-<span id="cb12-22"><a href="#cb12-22"></a></span>
-<span id="cb12-23"><a href="#cb12-23"></a><span class="kw">list</span>(</span>
-<span id="cb12-24"><a href="#cb12-24"></a>  <span class="kw">tar_jags_rep_summary</span>(</span>
-<span id="cb12-25"><a href="#cb12-25"></a>    model,</span>
-<span id="cb12-26"><a href="#cb12-26"></a>    <span class="kw">c</span>(<span class="st">&quot;model.jags&quot;</span>, <span class="st">&quot;model2.jags&quot;</span>), <span class="co"># another model</span></span>
-<span id="cb12-27"><a href="#cb12-27"></a>    <span class="dt">data =</span> <span class="kw">generate_data</span>(),</span>
-<span id="cb12-28"><a href="#cb12-28"></a>    <span class="dt">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb12-29"><a href="#cb12-29"></a>    <span class="dt">batches =</span> <span class="dv">5</span>,</span>
-<span id="cb12-30"><a href="#cb12-30"></a>    <span class="dt">reps =</span> <span class="dv">4</span>,</span>
-<span id="cb12-31"><a href="#cb12-31"></a>    <span class="dt">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
-<span id="cb12-32"><a href="#cb12-32"></a>    <span class="dt">summaries =</span> <span class="kw">list</span>(</span>
-<span id="cb12-33"><a href="#cb12-33"></a>      <span class="op">~</span>posterior<span class="op">::</span><span class="kw">quantile2</span>(.x, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb12-34"><a href="#cb12-34"></a>    )</span>
-<span id="cb12-35"><a href="#cb12-35"></a>  ),</span>
-<span id="cb12-36"><a href="#cb12-36"></a>  <span class="kw">tar_target</span>(</span>
-<span id="cb12-37"><a href="#cb12-37"></a>    coverage,</span>
-<span id="cb12-38"><a href="#cb12-38"></a>    model <span class="op">%&gt;%</span></span>
-<span id="cb12-39"><a href="#cb12-39"></a><span class="st">      </span><span class="kw">group_by</span>(.name) <span class="op">%&gt;%</span></span>
-<span id="cb12-40"><a href="#cb12-40"></a><span class="st">      </span><span class="kw">summarize</span>(<span class="dt">coverage =</span> <span class="kw">mean</span>(q2<span class="fl">.5</span> <span class="op">&lt;</span><span class="st"> </span>.join_data <span class="op">&amp;</span><span class="st"> </span>.join_data <span class="op">&lt;</span><span class="st"> </span>q97<span class="fl">.5</span>))</span>
-<span id="cb12-41"><a href="#cb12-41"></a>  )</span>
-<span id="cb12-42"><a href="#cb12-42"></a>)</span></code></pre></div>
-<p>In the graph below, notice how targets <code>model_model1</code> and <code>model_model2</code> are both connected to <code>model_data</code> upstream. Downstream, <code>model</code> is equivalent to <code>dplyr::bind_rows(model_model1, model_model2)</code>, and it will have special columns <code>.name</code> and <code>.file</code> to distinguish among all the models.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">tar_visnetwork</span>()</span></code></pre></div>
-<div class="visNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b2d0db3ea4d4790ce3c0" style="width:288px;height:288px;"></div>
-<script type="application/json" data-for="htmlwidget-b2d0db3ea4d4790ce3c0">{"x":{"nodes":{"name":["coverage","model","model_batch","model_data","model_file_model","model_lines_model","model_model","model_file_model2","model_lines_model2","model_model2","generate_data"],"type":["stem","stem","stem","pattern","stem","stem","pattern","stem","stem","pattern","function"],"status":["outdated","outdated","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","outdated","outdated","uptodate"],"seconds":[0.03,0.001,0.001,0.04,0,0.002,1.051,null,null,null,null],"bytes":[173,4283,99,3017,128,144,7505,null,null,null,null],"branches":[null,null,null,5,null,null,5,null,null,null,null],"label":["coverage","model","model_batch","model_data","model_file_model","model_lines_model","model_model","model_file_model2","model_lines_model2","model_model2","generate_data"],"color":["#78B7C5","#78B7C5","#354823","#354823","#354823","#354823","#354823","#78B7C5","#78B7C5","#78B7C5","#354823"],"id":["coverage","model","model_batch","model_data","model_file_model","model_lines_model","model_model","model_file_model2","model_lines_model2","model_model2","generate_data"],"level":[5,4,1,2,1,2,3,1,2,3,1],"shape":["dot","dot","dot","square","dot","dot","square","dot","dot","square","triangle"]},"edges":{"from":["model_data","model_lines_model2","model_data","model_lines_model","model_file_model","model_model","model_model2","model_file_model2","generate_data","model_batch","model"],"to":["model_model2","model_model2","model_model","model_model","model_lines_model","model","model","model_lines_model2","model_data","model_data","coverage"],"arrows":["to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Up to date","Stem","Pattern","Function"],"color":["#78B7C5","#354823","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<p><code>tar_jags_rep_mcmc_summary()</code> and similar functions allow
+you to supply multiple jags models. If you do, each model will share the
+the same collection of datasets, and the <code>.dataset_id</code> column
+of the model target output allows for custom analyses that compare
+different models against each other. Below, we add a new
+<code>model2.jags</code> file to the <code>jags_files</code> argument of
+<code>tar_jags_rep_mcmc_summary()</code>. In the coverage summary below,
+we group by <code>.name</code> to compute a coverage statistic for each
+model.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="st">&quot;model {</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="st">  for (i in 1:n) {</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="st">    y[i] ~ dnorm(beta[1] + x[i] * x[i] * beta[2], 1) # Regress on x^2, not x.</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="st">  for (i in 1:2) {</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="st">    beta[i] ~ dnorm(0, 1)</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="st">}&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="fu">writeLines</span>(lines, <span class="st">&quot;model2.jags&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># _targets.R</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co"># packages needed to define the pipeline:</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">library</span>(jagstargets)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="fu">tar_option_set</span>(</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="at">packages =</span> <span class="st">&quot;dplyr&quot;</span>, <span class="co"># packages needed to run the pipeline</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  <span class="at">memory =</span> <span class="st">&quot;transient&quot;</span>, <span class="co"># memory efficiency</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="at">garbage_collection =</span> <span class="cn">TRUE</span> <span class="co"># memory efficiency</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>generate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> 10L) {</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> n)</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  y <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n, beta[<span class="dv">1</span>] <span class="sc">+</span> x <span class="sc">*</span> beta[<span class="dv">2</span>], <span class="dv">1</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  <span class="co"># Elements of .join_data get joined on to the .join_data column</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>  <span class="co"># in the summary output next to the model parameters</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>  <span class="co"># with the same names.</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  .join_data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">beta =</span> beta)</span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">n =</span> n, <span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">.join_data =</span> .join_data)</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>}</span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>  <span class="fu">tar_jags_rep_summary</span>(</span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>    model,</span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot;model.jags&quot;</span>, <span class="st">&quot;model2.jags&quot;</span>), <span class="co"># another model</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">generate_data</span>(),</span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>    <span class="at">parameters.to.save =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>    <span class="at">batches =</span> <span class="dv">5</span>,</span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>    <span class="at">reps =</span> <span class="dv">4</span>,</span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;beta&quot;</span>,</span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a>    <span class="at">summaries =</span> <span class="fu">list</span>(</span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>      <span class="sc">~</span>posterior<span class="sc">::</span><span class="fu">quantile2</span>(.x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>    )</span>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a>  ),</span>
+<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a>    coverage,</span>
+<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a>    model <span class="sc">%&gt;%</span></span>
+<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a>      <span class="fu">group_by</span>(.name) <span class="sc">%&gt;%</span></span>
+<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">coverage =</span> <span class="fu">mean</span>(q2<span class="fl">.5</span> <span class="sc">&lt;</span> .join_data <span class="sc">&amp;</span> .join_data <span class="sc">&lt;</span> q97<span class="fl">.5</span>))</span>
+<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a>  )</span>
+<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a>)</span></code></pre></div>
+<p>In the graph below, notice how targets <code>model_model1</code> and
+<code>model_model2</code> are both connected to <code>model_data</code>
+upstream. Downstream, <code>model</code> is equivalent to
+<code>dplyr::bind_rows(model_model1, model_model2)</code>, and it will
+have special columns <code>.name</code> and <code>.file</code> to
+distinguish among all the models.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-700fa761a7a2b015a664" style="width:288px;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-700fa761a7a2b015a664">{"x":{"nodes":{"name":["coverage","model","model_batch","model_data","model_file_model","model_lines_model","model_model","model_file_model2","model_lines_model2","model_model2","generate_data"],"type":["stem","stem","stem","pattern","stem","stem","pattern","stem","stem","pattern","function"],"description":[null,null,null,null,"model.jags","model.jags","model.jags","model2.jags","model2.jags","model2.jags",null],"status":["outdated","outdated","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","outdated","outdated","uptodate"],"seconds":[0.01,0,0,0.015,0,0,0.423,null,null,null,null],"bytes":[173,4508,99,3062,128,144,8145,null,null,null,null],"branches":[null,null,null,5,null,null,5,null,null,null,null],"label":["coverage","model","model_batch","model_data","model_file_model\nmodel.jags","model_lines_model\nmodel.jags","model_model\nmodel.jags","model_file_model2\nmodel2.jags","model_lines_model2\nmodel2.jags","model_model2\nmodel2.jags","generate_data"],"color":["#78B7C5","#78B7C5","#354823","#354823","#354823","#354823","#354823","#78B7C5","#78B7C5","#78B7C5","#354823"],"id":["coverage","model","model_batch","model_data","model_file_model","model_lines_model","model_model","model_file_model2","model_lines_model2","model_model2","generate_data"],"level":[5,4,1,2,1,2,3,1,2,3,1],"shape":["dot","dot","dot","square","dot","dot","square","dot","dot","square","triangle"]},"edges":{"from":["model_data","model_lines_model","model_file_model","model","generate_data","model_batch","model_model","model_model2","model_data","model_lines_model2","model_file_model2"],"to":["model_model","model_model","model_lines_model","coverage","model_data","model_data","model","model","model_model2","model_model2","model_lines_model2"],"arrows":["to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Up to date","Stem","Pattern","Function"],"color":["#78B7C5","#354823","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","dot","square","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-cook2006">
-<p>Cook, Samantha R., Andrew Gelman, and Donald B. Rubin. 2006. “Validation of Software for Bayesian Models Using Posterior Quantiles.” <em>Journal of Computational and Graphical Statistics</em> 15 (3): 675–92.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cook2006" class="csl-entry">
+Cook, Samantha R., Andrew Gelman, and Donald B. Rubin. 2006.
+<span>“Validation of Software for Bayesian Models Using Posterior
+Quantiles.”</span> <em>Journal of Computational and Graphical
+Statistics</em> 15 (3): 675–92.
 </div>
-<div id="ref-talts2020">
-<p>Talts, Sean, Michael Betancourt, Daniel Simpson, Aki Vehtari, and Andrew Gelman. 2020. “Validating Bayesian Inference Algorithms with Simulation-Based Calibration.”</p>
+<div id="ref-talts2020" class="csl-entry">
+Talts, Sean, Michael Betancourt, Daniel Simpson, Aki Vehtari, and Andrew
+Gelman. 2020. <span>“Validating Bayesian Inference Algorithms with
+Simulation-Based Calibration.”</span>
 </div>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Internally, each batch is a <a href="https://books.ropensci.org/targets/dynamic.html">dynamic branch target</a>, and the number of replications determines the amount of work done within a branch. In the general case, <a href="https://books.ropensci.org/targets/dynamic.html#batching">batching</a> is a way to find the right compromise between target-specific overhead and the horizontal scale of the pipeline.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Internally, each batch is a <a href="https://books.ropensci.org/targets/dynamic.html">dynamic branch
+target</a>, and the number of replications determines the amount of work
+done within a branch. In the general case, <a href="https://books.ropensci.org/targets/dynamic.html#batching">batching</a>
+is a way to find the right compromise between target-specific overhead
+and the horizontal scale of the pipeline.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

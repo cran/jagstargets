@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 # With the root.dir option below,
 # this vignette runs the R code in a temporary directory
 # so new files are written to temporary storage
@@ -31,7 +31,7 @@ lines <- "model {
 }"
 writeLines(lines, "model.jags")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 library(targets)
 tar_script({
@@ -63,7 +63,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  library(targets)
 #  library(jagstargets)
@@ -100,7 +100,7 @@ tar_script({
 ## -----------------------------------------------------------------------------
 tar_visnetwork()
 
-## ---- output = FALSE, warning = FALSE-----------------------------------------
+## ----output = FALSE, warning = FALSE------------------------------------------
 tar_make()
 
 ## -----------------------------------------------------------------------------
@@ -113,7 +113,7 @@ model %>%
   group_by(variable) %>%
   dplyr::summarize(coverage = mean(q2.5 < .join_data & .join_data < q97.5))
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 library(targets)
 tar_script({
@@ -161,7 +161,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  # packages needed to define the pipeline:
 #  library(targets)
@@ -211,7 +211,7 @@ tar_script({
 ## -----------------------------------------------------------------------------
 tar_visnetwork()
 
-## ---- output = FALSE, warning = FALSE-----------------------------------------
+## ----output = FALSE, warning = FALSE------------------------------------------
 tar_make()
 
 ## -----------------------------------------------------------------------------
@@ -228,7 +228,7 @@ lines <- "model {
 }"
 writeLines(lines, "model2.jags")
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 # Writes the _targets.R file shown in the next code chunk.
 library(targets)
 tar_script({
@@ -273,7 +273,7 @@ tar_script({
   )
 })
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  # _targets.R
 #  # packages needed to define the pipeline:
 #  library(targets)
